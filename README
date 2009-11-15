@@ -1,0 +1,11 @@
+Usage
+
+Build with ant.
+
+Run with:
+
+java -jar propdiff.jar file1.properties file1_fi.properties file1_sv.properties > result.csv
+
+For easy viewing, open the output file in OpenOffice/Excel. 'X' in a column means that the key exists in
+that particular properties file. Empty means it's missing. Keys that exist in all files are hidden from output.
+
