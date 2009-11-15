@@ -18,6 +18,12 @@ import java.util.Map.Entry;
 
 public class PropDiff {
 	public static void main(String[] names) throws IOException {
+	
+		if (names.length == 0) {
+			System.out.println("Input: filenames of .properties files. Output: csv file that marks missing entries (view in OpenOffice/Excel).");
+			System.exit(1);
+		} 
+	
 		SortedSet<String> filenames = new TreeSet<String>(Arrays.asList(names));
 		
 		Map<String, Properties> map = readPropertiesFiles(filenames);
