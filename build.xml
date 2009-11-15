@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="propdiff" default="jar">
 	<target name="compile">
-		<mkdir dir="bin"/>
-		<javac srcdir="src" destdir="bin"/>
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" />
 	</target>
-	
+
 	<target name="jar" depends="compile">
-		<jar basedir="bin" manifest="META-INF/METAINF.INF" destfile="propdiff.jar"/>
+		<jar basedir="bin" manifest="META-INF/METAINF.INF" destfile="propdiff.jar" />
 	</target>
-	
+
 	<target name="clean">
-		<delete dir="bin"/>
+		<delete dir="bin" />
 	</target>
 </project>
