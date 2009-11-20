@@ -17,7 +17,14 @@ import java.util.TreeSet;
 import java.util.Map.Entry;
 
 public class PropDiff {
+	private static final String FIELD_SEPARATOR = "\t";
+
 	public static void main(String[] names) throws IOException {
+		boolean showValues = false;
+		if (names.length > 0 && names[0].equals("-v")) {
+			showValues = true;
+			names = shiftLeft(names);
+		}
 	
 		if (names.length == 0) {
 			System.out.println("Input: filenames of .properties files. Output: csv file that marks missing entries (view in OpenOffice/Excel).");
@@ -29,13 +36,22 @@ public class PropDiff {
 		Map<String, Properties> map = readPropertiesFiles(filenames);
 		Map<String, Set<String>> propertyExistIn = mapPropertiesToFilenames(map);
 		removePropertiesExistingInAllFiles(propertyExistIn, filenames);
-		printOut(propertyExistIn, filenames);
+		printOut(propertyExistIn, filenames, showValues ? map : null);
 	}
 
-	private static void printOut(Map<String, Set<String>> propertyExistIn, Set<String> filenames) {
+	private static String[] shiftLeft(String[] names) {
+		String[] unshifted = names;
+		names = new String[unshifted.length - 1];
+		for (int i = 1; i < unshifted.length; ++i) {
+			names[i-1] = unshifted[i];
+		}
+		return names;
+	}
+
+	private static void printOut(Map<String, Set<String>> propertyExistIn, Set<String> filenames, Map<String, Properties> propertiesMap) {
 		System.out.print("Property");
 		for (String filename : filenames) {
-			System.out.print(",");
+			System.out.print(FIELD_SEPARATOR);
 			System.out.print(filename);
 		}
 		System.out.println();
@@ -43,9 +59,13 @@ public class PropDiff {
 			String property = entry.getKey();
 			System.out.print(property);
 			for (String filename : filenames) {
-				System.out.print(",");
+				System.out.print(FIELD_SEPARATOR);
 				if (entry.getValue().contains(filename)) {
-					System.out.print("X");
+					if (propertiesMap != null) {
+						System.out.print(propertiesMap.get(filename).getProperty(entry.getKey()));
+					} else {
+						System.out.print("X");
+					}
 				} else {
 					System.out.print("");
 				}
