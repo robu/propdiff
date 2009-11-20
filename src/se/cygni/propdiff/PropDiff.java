@@ -27,7 +27,7 @@ public class PropDiff {
 		}
 	
 		if (names.length == 0) {
-			System.out.println("Input: filenames of .properties files. Output: csv file that marks missing entries (view in OpenOffice/Excel).");
+			System.out.println("Input: filenames of .properties files. \nOutput: csv file (on stdout) that marks missing entries (view in OpenOffice/Excel). \nYou can prepend the filenames with '-v' to get the values in the output.");
 			System.exit(1);
 		} 
 	
